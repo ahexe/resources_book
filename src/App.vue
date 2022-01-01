@@ -1,16 +1,19 @@
 <template>
   <the-header title="Learning Resources"></the-header>
   <stored-resources :stored-data="this.storedData"></stored-resources>
+  <add-resource @add-res="addToStoredData"></add-resource>
 </template>
 
 <script>
 import StoredResources from './components/resources-stuff/StoredResources.vue';
 import TheHeader from './components/layouts/TheHeader.vue';
+import AddResource from './components/forms/AddResource.vue';
 
 export default {
   components: {
     StoredResources,
     TheHeader,
+    AddResource,
   },
   data() {
     return {
@@ -35,6 +38,17 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    addToStoredData(title, description, link) {
+      const source = {
+        id: new Date().toISOString(),
+        title: title,
+        description: description,
+        link: link,
+      };
+      this.storedData.push(source);
+    },
   },
 };
 </script>

@@ -11,7 +11,9 @@
       >Add Resources</base-button
     >
   </base-card>
-  <component :is="selectedTab" @add-res="addToStoredData"></component>
+  <keep-alive>
+    <component :is="selectedTab"></component>
+  </keep-alive>
 </template>
 
 <script>
@@ -51,6 +53,7 @@ export default {
   provide() {
     return {
       resources: this.storedData,
+      addResource: this.addToStoredData,
     };
   },
   computed: {
@@ -72,7 +75,8 @@ export default {
         description: description,
         link: link,
       };
-      this.storedData.push(source);
+      this.storedData.unshift(source);
+      this.selectedTab = 'stored-resources';
     },
   },
 };

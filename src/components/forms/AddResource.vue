@@ -1,13 +1,18 @@
 <template>
   <base-card>
-    <form @submit.prevent="addResource">
+    <form @submit.prevent="submitData">
       <div class="form-control">
         <label for="title">Title</label>
         <input v-model="enteredTitle" id="title" name="title" type="text" />
       </div>
       <div class="form-control">
         <label for="description">Description</label>
-        <textarea name="description" id="description" rows="3"></textarea>
+        <textarea
+          v-model="enteredDescription"
+          name="description"
+          id="description"
+          rows="3"
+        ></textarea>
       </div>
       <div class="form-control">
         <label for="link">Link</label>
@@ -22,7 +27,7 @@
 
 <script>
 export default {
-  emits: ['add-res'],
+  inject: ['addResource'],
   data() {
     return {
       enteredTitle: '',
@@ -31,19 +36,17 @@ export default {
     };
   },
   methods: {
-    addResource() {
-      if (this.enteredTitle) {
-        this.$emit(
-          'add-res',
-          this.enteredTitle,
-          this.enteredDescription,
-          this.enteredLink
-        );
-        this.enteredTitle = '';
-        this.enteredDescription = '';
-        this.enteredLink = '';
-      }
-      // todo  else
+    submitData() {
+      this.addResource(
+        this.enteredTitle,
+        this.enteredDescription,
+        this.enteredLink
+      );
+
+      this.enteredTitle = '';
+      this.enteredDescription = '';
+      this.enteredLink = '';
+      // todo if else
     },
   },
 };

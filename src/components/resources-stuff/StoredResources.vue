@@ -7,7 +7,6 @@
       :title="data.title"
       :description="data.description"
       :link="data.link"
-      @delete-res="deleteResource(data.id)"
     ></resource-show>
   </ul>
 </template>
@@ -20,11 +19,6 @@ export default {
     ResourceShow,
   },
   inject: ['resources'],
-  methods: {
-    deleteResource(dataId) {
-      this.resources = this.resources.filter((data) => data.id !== dataId);
-    },
-  },
 };
 </script>
 

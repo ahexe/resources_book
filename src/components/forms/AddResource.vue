@@ -1,4 +1,17 @@
 <template>
+  <base-dialog
+    v-if="inputDialog"
+    :title="enteredTitle ? enteredTitle : 'Invalid Input'"
+    @close="confirmError"
+  >
+    <template #default>
+      <p>Unfortunately the Title can't be empty.</p>
+      <p>Please enter the Title.</p>
+    </template>
+    <template #actions>
+      <base-button @click="confirmError">OK</base-button>
+    </template>
+  </base-dialog>
   <base-card>
     <form @submit.prevent="submitData">
       <div class="form-control">
@@ -26,10 +39,13 @@
 </template>
 
 <script>
+import BaseButton from '../UI/BaseButton.vue';
 export default {
+  components: { BaseButton },
   inject: ['addResource'],
   data() {
     return {
+      inputDialog: false,
       enteredTitle: '',
       enteredDescription: '',
       enteredLink: '',
@@ -37,16 +53,21 @@ export default {
   },
   methods: {
     submitData() {
-      this.addResource(
-        this.enteredTitle,
-        this.enteredDescription,
-        this.enteredLink
-      );
-
-      this.enteredTitle = '';
-      this.enteredDescription = '';
-      this.enteredLink = '';
-      // todo if else
+      if (this.enteredTitle.trim() !== '') {
+        this.addResource(
+          this.enteredTitle,
+          this.enteredDescription,
+          this.enteredLink
+        );
+        this.enteredTitle = '';
+        this.enteredDescription = '';
+        this.enteredLink = '';
+      } else {
+        this.inputDialog = true;
+      }
+    },
+    confirmError() {
+      this.inputDialog = false;
     },
   },
 };

@@ -1,12 +1,13 @@
 <template>
   <ul>
     <resource-show
-      v-for="data in storedData"
+      v-for="data in resources"
       :key="data.id"
       :id="data.id"
       :title="data.title"
       :description="data.description"
       :link="data.link"
+      @delete-res="deleteResource(data.id)"
     ></resource-show>
   </ul>
 </template>
@@ -18,7 +19,12 @@ export default {
   components: {
     ResourceShow,
   },
-  props: ['stored-data'],
+  inject: ['resources'],
+  methods: {
+    deleteResource(dataId) {
+      this.resources = this.resources.filter((data) => data.id !== dataId);
+    },
+  },
 };
 </script>
 

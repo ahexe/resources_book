@@ -1,21 +1,23 @@
 <template>
-  <form @submit.prevent="addResource">
-    <base-card>
+  <base-card>
+    <form @submit.prevent="addResource">
       <div class="form-control">
-        <label>Title</label>
-        <input v-model="enteredTitle" type="text" />
+        <label for="title">Title</label>
+        <input v-model="enteredTitle" id="title" name="title" type="text" />
       </div>
       <div class="form-control">
-        <label>Description</label>
-        <input v-model="enteredDescription" type="text" />
+        <label for="description">Description</label>
+        <textarea name="description" id="description" rows="3"></textarea>
       </div>
       <div class="form-control">
-        <label>Link</label>
-        <input v-model="enteredLink" type="url" />
+        <label for="link">Link</label>
+        <input v-model="enteredLink" id="link" name="link" type="url" />
       </div>
-      <base-button>Add Resource</base-button>
-    </base-card>
-  </form>
+      <div>
+        <base-button type="submit">Add Resource</base-button>
+      </div>
+    </form>
+  </base-card>
 </template>
 
 <script>

@@ -7,9 +7,9 @@
           >Delete</base-button
         >
       </header>
-      <p>{{ description }}</p>
+      <p>{{ checkDescriptionExist }}</p>
       <nav>
-        <a :href="link">View Resource</a>
+        <a :href="checkLinkExist">View Resource</a>
       </nav>
     </base-card>
   </li>
@@ -36,8 +36,17 @@ export default {
       required: false,
     },
   },
-  data() {
-    return {};
+  computed: {
+    checkDescriptionExist() {
+      return this.description
+        ? this.description
+        : 'Search in Google for more information';
+    },
+    checkLinkExist() {
+      return this.link
+        ? this.link
+        : 'https://www.google.com/search?q=' + this.title;
+    },
   },
 };
 </script>
